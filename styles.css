@@ -29,6 +29,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background: #03030c;
 }
@@ -341,6 +342,7 @@ body {
 
     width: min(470px, 78vw);
     height: 82vh;
+    height: 82dvh;
 
     transform: translateX(-50%) translateY(80px) scale(1.05);
     opacity: 0;
@@ -867,19 +869,35 @@ body {
 
 
 /* =========================================
-   MENSAJE FINAL (sobre la foto y el castillo)
+   MENSAJE FINAL (panel centrado)
 ========================================= */
 
 .final-message {
     position: absolute;
     left: 50%;
-    bottom: 6%;
+    top: 50%;
 
-    width: 90%;
+    width: min(92%, 720px);
+    max-height: 82vh;
+    max-height: 82dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    padding: 36px 34px;
     text-align: center;
 
-    transform: translate(-50%, 30px);
+    background: rgba(8, 6, 26, 0.74);
+    border: 1px solid rgba(246, 215, 134, 0.3);
+    border-radius: 22px;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.55),
+        0 0 40px rgba(246, 215, 134, 0.1);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    transform: translate(-50%, calc(-50% + 30px));
     opacity: 0;
+    pointer-events: none;
 
     z-index: 15;
 
@@ -890,34 +908,83 @@ body {
 
 .birthday.reveal .final-message {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
 }
 
-.final-message p {
+/* Scroll discreto */
+
+.final-message::-webkit-scrollbar {
+    width: 4px;
+}
+
+.final-message::-webkit-scrollbar-thumb {
+    background: rgba(246, 215, 134, 0.4);
+    border-radius: 4px;
+}
+
+/* Título */
+
+.final-message .titulo {
+    margin-bottom: 22px;
+
     font-family: Georgia, "Times New Roman", serif;
     font-style: italic;
-    font-size: clamp(18px, 2.4vw, 30px);
-    letter-spacing: 1.5px;
+    font-weight: normal;
+    font-size: clamp(26px, 5vw, 40px);
+    line-height: 1.2;
 
-    background: linear-gradient(
-        100deg,
-        #d9a84a 0%,
-        #f6d786 30%,
-        #ffffff 50%,
-        #f6d786 70%,
-        #d9a84a 100%
-    );
-    background-size: 250% 100%;
-
+    background: linear-gradient(180deg, #ffffff 0%, #f6d786 60%, #dca94c 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 
-    filter:
-        drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8))
-        drop-shadow(0 0 12px rgba(255, 220, 135, 0.35));
+    filter: drop-shadow(0 0 10px rgba(255, 220, 135, 0.35));
+}
 
-    animation: messageShimmer 6s linear infinite;
+/* Párrafos */
+
+.final-message p {
+    margin: 0 0 1.2em;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: clamp(15px, 2.2vw, 20px);
+    line-height: 1.75;
+    letter-spacing: 0.3px;
+    text-wrap: pretty;
+
+    color: #f6e7b8;
+    background: none;
+    -webkit-text-fill-color: #f6e7b8;
+    filter: none;
+    animation: none;
+
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Frase destacada */
+
+.final-message .destacado {
+    margin: 1.6em 0;
+    padding: 16px 0;
+
+    font-size: clamp(17px, 2.8vw, 25px);
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+
+    border-top: 1px solid rgba(246, 215, 134, 0.45);
+    border-bottom: 1px solid rgba(246, 215, 134, 0.45);
+    text-shadow: 0 0 14px rgba(255, 220, 135, 0.6);
+}
+
+/* Firma */
+
+.final-message .firma {
+    margin: 1.4em 0 0;
+    font-size: clamp(16px, 2.4vw, 22px);
+    color: #f6d786;
+    -webkit-text-fill-color: #f6d786;
 }
 
 
@@ -941,6 +1008,7 @@ body {
     .princess-container {
         width: min(440px, 78vw);
         height: 78vh;
+        height: 78dvh;
     }
 }
 
@@ -993,6 +1061,7 @@ body {
         bottom: -20px;
         width: 95vw;
         height: 75vh;
+        height: 75dvh;
     }
 
     .princess-photo {
@@ -1006,11 +1075,23 @@ body {
     }
 
     .final-message {
-        bottom: 5%;
+        width: 92%;
+        padding: 24px 18px;
+        max-height: 78dvh;
+        border-radius: 18px;
+    }
+
+    .final-message .titulo {
+        margin-bottom: 16px;
     }
 
     .final-message p {
-        font-size: 18px;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .final-message .destacado {
+        font-size: 17px;
     }
 }
 
@@ -1037,5 +1118,45 @@ body {
 
     .princess-container {
         width: 100vw;
+    }
+
+    .final-message {
+        padding: 20px 14px;
+    }
+
+    .final-message p {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================================
+   PANTALLAS BAJAS (celular en horizontal)
+========================================= */
+
+@media (max-height: 480px) {
+
+    .final-message {
+        max-height: 90dvh;
+        padding: 18px 20px;
+    }
+
+    .final-message .titulo {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* =========================================
+   ACCESIBILIDAD: MENOS MOVIMIENTO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
     }
 }
